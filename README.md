@@ -65,6 +65,11 @@ The following environment variables are supported:
  * `DEPLOY_DIR`  (Default: `"$BASE_DIR/deploy"`)
 
    Output directory for target system images and NOOBS bundles.
+   
+ * `ROOTFS_TYPE`  (Default: `"f2fs"`)
+
+   Filesystem type to use for the root filesystem. Currently supported types
+   are `ext4` and `f2fs`.
 
 
 A simple example for building Raspbian:
