@@ -50,7 +50,10 @@ install files/LICENSE.oracle ${ROOTFS_DIR}/boot/
 ROOT_DEV=$(mount | grep "${ROOTFS_DIR} " | cut -f1 -d' ')
 
 unmount ${ROOTFS_DIR}
-zerofree -v ${ROOT_DEV}
+
+if [ "$ROOTFS_TYPE" == "ext4" ]; then
+    zerofree -v ${ROOT_DEV}
+fi
 
 unmount_image ${IMG_FILE}
 

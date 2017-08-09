@@ -56,9 +56,21 @@ if grep -q "metadata_csum" /etc/mke2fs.conf; then
     ROOT_FEATURES="^metadata_csum,$ROOT_FEATURES"
 fi
 mkdosfs -n boot -F 32 -v $BOOT_DEV > /dev/null
-mkfs.ext4 -O $ROOT_FEATURES $ROOT_DEV > /dev/null
 
-mount -v $ROOT_DEV ${ROOTFS_DIR} -t ext4
+case $ROOTFS_TYPE in
+    f2fs)
+	mkfs.f2fs $ROOT_DEV
+	;;
+    ext4)
+	mkfs.ext4 -O $ROOT_FEATURES $ROOT_DEV > /dev/null
+	;;
+    *)
+	echo "Unsupported root filesystem $ROOTFS_TYPE"
+	exit 1
+	;;
+esac
+
+mount -v $ROOT_DEV ${ROOTFS_DIR} -t $ROOTFS_TYPE
 mkdir -p ${ROOTFS_DIR}/boot
 mount -v $BOOT_DEV ${ROOTFS_DIR}/boot -t vfat
 

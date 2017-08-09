@@ -139,6 +139,7 @@ export LOG_FILE="${WORK_DIR}/build.log"
 export CLEAN
 export IMG_NAME
 export APT_PROXY
+export ROOTFS_TYPE="f2fs"
 
 export STAGE
 export STAGE_DIR

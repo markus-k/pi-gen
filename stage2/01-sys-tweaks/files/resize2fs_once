@@ -12,8 +12,10 @@
 case "$1" in
   start)
     log_daemon_msg "Starting resize2fs_once"
-    ROOT_DEV=$(findmnt / -o source -n) &&
-    resize2fs $ROOT_DEV &&
+    ROOT_DEV=$(findmnt / -o source -n -v) &&
+    ROOT_TYPE=$(blkid -o value -s TYPE $ROOT_DEV) &&
+    if [ "$ROOT_TYPE" == "ext4" ]; then resize2fs $ROOT_DEV; \
+     elif ["$ROOT_TYPE" == "f2fs" ]; then resize.f2fs $ROOT_DEV; fi &&
     update-rc.d resize2fs_once remove &&
     rm /etc/init.d/resize2fs_once &&
     log_end_msg $?
