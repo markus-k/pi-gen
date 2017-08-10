@@ -1,5 +1,5 @@
-ssh less fbset sudo psmisc strace module-init-tools ed ncdu crda
-console-setup keyboard-configuration debconf-utils parted unzip f2fs-tools
+ssh less fbset sudo psmisc strace kmod ed ncdu crda f2fs-tools
+console-setup keyboard-configuration debconf-utils parted unzip
 build-essential manpages-dev python bash-completion gdb pkg-config
 python-rpi.gpio v4l-utils
 avahi-daemon
